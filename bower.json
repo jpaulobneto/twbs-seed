@@ -1,0 +1,7 @@
+{
+	"name": "twbs-seed",
+	"version": "1.0.0",
+	"description": "Boilerplate and custom bootstrap configuration to build faster",
+	"license": "MIT",
+	"private": true
+}

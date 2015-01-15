@@ -1,0 +1,21 @@
+/**
+ * Este arquivo carrega os layouts e os vendors
+ *
+ * @author Sérgio Vilar
+ * @date 19/07/2014
+ *
+ **/
+
+// Carrega os vendors
+@import 'compass';
+@import 'helpers/variables';
+@import 'helpers/fonts';
+@import 'helpers/functions';
+@import "../vendor/bootstrap-sass-official/assets/stylesheets/bootstrap";
+
+@import "common";
+
+// Importa os layouts
+html[rel="base"]{
+	@import 'layout/base';
+}

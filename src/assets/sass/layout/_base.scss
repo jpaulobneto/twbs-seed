@@ -1,0 +1,7 @@
+// Componentes
+@import "../components/header";
+
+// Páginas
+body.home{
+	@import "../pages/home";
+}

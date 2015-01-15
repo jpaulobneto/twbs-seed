@@ -98,8 +98,13 @@ gulp.task('compass', function () {
 			dirs.sass + '/main.scss',
 			//dirs.sass + '/main-ie.scss',
 		])
-			.pipe(plumber())
+			.pipe(plumber({
+				errorHandler: function (error) {
+					console.log(error.message);
+					this.emit('end');
+				}}))
 			.pipe(compass(config))
+			.on('error', gutil.log)
 			.pipe(csso())
 			.pipe(gulp.dest(dirs.css))
 			.pipe(reload({stream: true}));
@@ -108,8 +113,13 @@ gulp.task('compass', function () {
 			dirs.sass + '/main.scss',
 			//dirs.sass + '/main-ie.scss',
 		])
-			.pipe(plumber())
+			.pipe(plumber({
+				errorHandler: function (error) {
+					console.log(error.message);
+					this.emit('end');
+				}}))
 			.pipe(compass(config))
+			.on('error', gutil.log)
 			.pipe(gulp.dest(dirs.css))
 			.pipe(reload({stream: true}));
 	}

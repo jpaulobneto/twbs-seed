@@ -1,44 +1,47 @@
 {
-	"name": "twbs-seed",
-	"version": "1.0.0",
-	"title": "Twitter Bootstrap Seed",
-	"description": "Boilerplate and custom bootstrap configuration to build faster",
-	"keywords": [
-		"html5",
-		"css3",
-		"bootstrap",
-		"twbs",
-		"compass",
-		"gulp",
-		"bower",
-		"boilerplate",
-		"semantic",
-		"accessibility"
-	],
-	"author": "João Paulo Barbosa Neto <jpaulobneto@gmail.com>, Hugo Fabrício <me@hugofabricio.com>",
-	"homepage": "https://github.com/jpaulobneto/twbs-seed",
-	"main": "index.js",
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/jpaulobneto/twbs-seed.git"
-	},
-	"licenses": [
-		{
-			"type": "MIT",
-			"url": "https://raw.github.com/jpaulobneto/twbs-seed/master/LICENSE"
-		}
-	],
-	"devDependencies": {
-		"browser-sync": "^1.8.2",
-		"del": "^1.1.1",
-		"gulp": "^3.8.10",
-		"gulp-concat": "^2.4.2",
-		"gulp-csscomb": "^3.0.3",
-		"gulp-imagemin": "^2.0.0",
-		"gulp-size": "^1.1.0",
-		"gulp-uglify": "^1.0.2",
-		"gulp-util": "^3.0.1",
-		"gulp-watch": "^3.0.0",
-		"run-sequence": "^1.0.2"
-	}
+  "name": "twbs-seed",
+  "version": "1.0.0",
+  "title": "Twitter Bootstrap Seed",
+  "description": "Boilerplate and custom bootstrap configuration to build faster",
+  "keywords": [
+    "html5",
+    "css3",
+    "bootstrap",
+    "twbs",
+    "compass",
+    "gulp",
+    "bower",
+    "boilerplate",
+    "semantic",
+    "accessibility"
+  ],
+  "author": "João Paulo Barbosa Neto <jpaulobneto@gmail.com>, Hugo Fabrício <me@hugofabricio.com>",
+  "homepage": "https://github.com/jpaulobneto/twbs-seed",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jpaulobneto/twbs-seed.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://raw.github.com/jpaulobneto/twbs-seed/master/LICENSE"
+    }
+  ],
+  "devDependencies": {
+    "browser-sync": "^1.8.2",
+    "del": "^1.1.1",
+    "gulp": "^3.8.10",
+    "gulp-compass": "^2.0.3",
+    "gulp-concat": "^2.4.2",
+    "gulp-csscomb": "^3.0.3",
+    "gulp-csso": "^0.2.9",
+    "gulp-imagemin": "^2.0.0",
+    "gulp-plumber": "^0.6.6",
+    "gulp-size": "^1.1.0",
+    "gulp-uglify": "^1.0.2",
+    "gulp-util": "^3.0.1",
+    "gulp-watch": "^3.0.0",
+    "run-sequence": "^1.0.2"
+  }
 }

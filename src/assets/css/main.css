@@ -1,11 +1,4 @@
 @charset "UTF-8";
-/**
- * Este arquivo carrega os layouts e os vendors
- *
- * @author Sérgio Vilar
- * @date 19/07/2014
- *
- **/
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
@@ -6806,8 +6799,4 @@ button.close {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-}
-
-html[rel="base"] body.home main {
-  background: #fff;
 }

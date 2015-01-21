@@ -1,7 +1,6 @@
 var browserSync = require('browser-sync'),
 	compass = require('gulp-compass'),
 	concat = require('gulp-concat'),
-	csscomb = require('gulp-csscomb'),
 	csso = require('gulp-csso'),
 	del = require('del'),
 	gulp = require('gulp'),
@@ -15,7 +14,7 @@ var browserSync = require('browser-sync'),
 	watch = require('gulp-watch');
 
 var src = 'src',
-	dist = 'dist',
+	dist = '../wordpress/wp-content/themes/chefluby',
 	dirs = {
 		js: src + '/assets/js',
 		css: src + '/assets/css',
@@ -32,7 +31,7 @@ var src = 'src',
 	};
 
 // 'full' or 'assets'
-var distMode = 'full',
+var distMode = 'assets',
 	minCss = false,
 	minJs = false;
 
@@ -53,10 +52,9 @@ gulp.task('browser-reload', function () {
 
 gulp.task('build', function (cb) {
 	runSequence(
-		'cleanDist',
+		'cleanByDistMode',
 		['compass', 'concat'],
 		'copyByDistMode',
-		// 'csscomb:dist',
 		['clean:sprite', 'uglify'],
 		'imagemin',
 		'clean:release',
@@ -71,18 +69,24 @@ gulp.task('clean:release', function (cb) {
 		build.js + '/**/*',
 		'!' + build.js + '/scripts.js',
 		build.vend
-	], cb);
+	], {force: true}, cb);
 });
 
 gulp.task('clean:sprite', function (cb) {
 	return del([
 		build.img + '/sprite/hd',
 		build.img + '/sprite/standard'
-	], cb);
+	], {force: true}, cb);
 });
 
-gulp.task('cleanDist', function (cb) {
-	return del(dist, cb);
+gulp.task('cleanByDistMode', function(cb) {
+	switch (distMode) {
+		case 'assets':
+			return del(dist + '/assets', {force: true}, cb);
+			break;
+		default:
+			return del(dist, {force: true}, cb);
+	}
 });
 
 gulp.task('compass', function () {
@@ -167,15 +171,6 @@ gulp.task('copy:vendors', function () {
 		.pipe(gulp.dest(build.vend));
 });
 
-gulp.task('csscomb:dist', function () {
-	return gulp.src([
-		build.css + '/main.css',
-		build.css + '/main-ie.css'
-	])
-		.pipe(csscomb())
-		.pipe(gulp.dest(build.css));
-});
-
 gulp.task('default', ['browser-sync'], function () {
 	gulp.watch(dirs.sass + '/**/*.scss', ['compass']);
 	gulp.watch([
@@ -196,9 +191,9 @@ gulp.task('imagemin', function () {
 		.pipe(size({title: 'imagemin', showFiles: true}));
 });
 
-gulp.task('uglify', function () {
+gulp.task('uglify', function (cb) {
 	if (minJs) {
-		return gulp.src(build.js + '/scripts.js')
+		return gulp.src(dirs.js + '/scripts.js')
 			.pipe(uglify().on('error', gutil.log))
 			.pipe(gulp.dest(build.js));
 	}

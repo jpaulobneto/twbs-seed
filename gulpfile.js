@@ -14,7 +14,7 @@ var browserSync = require('browser-sync'),
 	watch = require('gulp-watch');
 
 var src = 'src',
-	dist = '../wordpress/wp-content/themes/chefluby',
+	dist = 'dist',
 	dirs = {
 		js: src + '/assets/js',
 		css: src + '/assets/css',
@@ -195,6 +195,9 @@ gulp.task('uglify', function (cb) {
 	if (minJs) {
 		return gulp.src(dirs.js + '/scripts.js')
 			.pipe(uglify().on('error', gutil.log))
+			.pipe(gulp.dest(build.js));
+	} else {
+		return gulp.src(dirs.js + '/scripts.js')
 			.pipe(gulp.dest(build.js));
 	}
 });

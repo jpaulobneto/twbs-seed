@@ -9,7 +9,7 @@
 
 		var bodyClasses = $('body').attr('class').split(' ');
 		$.each(bodyClasses, function(key, val) {
-			val = val.replace('-', '');
+			val = val.replace(/[-]/g, '');
 			if (window.mod[val] !== undefined) {
 				// console.log(key + ' => ' + val);
 				window.mod[val] = new window.mod[val]();

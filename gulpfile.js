@@ -1,5 +1,5 @@
-var browserSync = require('browser-sync'),
-    compass = require('gulp-compass'),
+var $ = require('gulp-load-plugins')(),
+    browserSync = require('browser-sync'),
     concat = require('gulp-concat'),
     csso = require('gulp-csso'),
     del = require('del'),
@@ -97,6 +97,9 @@ gulp.task('cleanByDistMode', function(cb) {
 
 gulp.task('styles', function() {
     return gulp.src(dirs.sass + '/main.scss')
+        .pipe($.cssGlobbing({
+            extensions: ['.scss']
+        }))
         .pipe($.sourcemaps.init())
         .pipe($.sass({
             outputStyle: 'nested', // libsass doesn't support expanded yet
@@ -110,7 +113,6 @@ gulp.task('styles', function() {
             })
         ]))
         .pipe($.sourcemaps.write())
-        .pipe(csso())
         .pipe(gulp.dest(dirs.css))
         .pipe(reload({
             stream: true

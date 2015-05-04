@@ -52,7 +52,7 @@ gulp.task('browser-reload', function() {
 
 gulp.task('build', function(cb) {
     runSequence(
-        'cleanByDistMode', ['compass', 'concat'],
+        'cleanByDistMode', ['styles', 'concat'],
         'copyByDistMode', ['clean:sprite', 'uglify'],
         'imagemin',
         'clean:release',
@@ -93,6 +93,28 @@ gulp.task('cleanByDistMode', function(cb) {
                 force: true
             }, cb);
     }
+});
+
+gulp.task('styles', function() {
+    return gulp.src(dirs.sass + '/main.scss')
+        .pipe($.sourcemaps.init())
+        .pipe($.sass({
+            outputStyle: 'nested', // libsass doesn't support expanded yet
+            precision: 10,
+            includePaths: ['.'],
+            onError: console.error.bind(console, 'Sass error:')
+        }))
+        .pipe($.postcss([
+            require('autoprefixer-core')({
+                browsers: ['last 1 version']
+            })
+        ]))
+        .pipe($.sourcemaps.write())
+        .pipe(csso())
+        .pipe(gulp.dest(dirs.css))
+        .pipe(reload({
+            stream: true
+        }));
 });
 
 gulp.task('compass', function() {
@@ -186,7 +208,7 @@ gulp.task('copy:vendors', function() {
 });
 
 gulp.task('default', ['browser-sync'], function() {
-    gulp.watch(dirs.sass + '/**/*.scss', ['compass']);
+    gulp.watch(dirs.sass + '/**/*.scss', ['styles']);
     gulp.watch([
         dirs.js + '/plugins.js',
         dirs.js + '/main.js',

@@ -118,6 +118,8 @@ gulp.task('concat', function() {
             dirs.js + '/plugins.js',
             // Vendors
             dirs.vend + '/bootstrap-sass-official/assets/javascripts/bootstrap.js',
+            dirs.vend + '/**/*jquery.mask.min.js',
+            dirs.vend + '/**/*retina.min.js',
             // Main
             dirs.js + '/main.js',
             // Modules

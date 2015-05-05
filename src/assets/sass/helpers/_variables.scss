@@ -1,3 +1,36 @@
-// Sprite mappers
-$sprite: sprite-map('sprite/standard/*.png', $layout: 'smart');
-$sprite-hd: sprite-map('sprite/hd/*.png', $layout: 'smart');
+/* Fonts */
+
+/* Color */
+$color-1: 									#ffffff;
+
+/* Text */
+// $text-color:								$color-1;
+// $link-color:								$color-1 !default;
+// $link-hover-color:						$color-1 !default;
+
+/* Navbar */
+// $grid-float-breakpoint:					993px !default;
+// $navbar-height:							100px !default;
+// $navbar-default-border:					$color-1;
+// $navbar-default-bg:						$color-1 !default;
+// $navbar-default-color:					$color-1 !default;
+// $navbar-default-link-color:				$color-1 !default;
+// $navbar-default-link-hover-color:		$color-1 !default;
+// $navbar-default-link-hover-bg:			transparent !default;
+// $navbar-default-link-active-color:		$color-1 !default;
+// $navbar-default-link-active-bg:			transparent !default;
+// $navbar-default-toggle-hover-bg:			$color-1 !default;
+// $navbar-default-toggle-icon-bar-bg:		$color-1 !default;
+// $navbar-default-toggle-border-color:		$color-1 !default;
+
+/* Nav */
+// $nav-link-padding:						10px 10px !default;
+
+/* Pagination */
+// $pagination-color:						$link-color !default;
+// $pagination-hover-color:					$color-1 !default;
+// $pagination-hover-bg:					$link-color !default;
+// $pagination-hover-border:				$link-color !default;
+// $pagination-active-color:				$color-1 !default;
+// $pagination-active-bg:					$link-color !default;
+// $pagination-active-border:				$link-color !default;

@@ -1,17 +1,9 @@
-var $ = require('gulp-load-plugins')(),
+var gulp = require('gulp'),
+    $ = require('gulp-load-plugins')(),
     browserSync = require('browser-sync'),
-    concat = require('gulp-concat'),
-    csso = require('gulp-csso'),
     del = require('del'),
-    gulp = require('gulp'),
-    gutil = require('gulp-util'),
-    imagemin = require('gulp-imagemin'),
-    plumber = require('gulp-plumber'),
     reload = browserSync.reload,
-    runSequence = require('run-sequence'),
-    size = require('gulp-size'),
-    uglify = require('gulp-uglify'),
-    watch = require('gulp-watch');
+    runSequence = require('run-sequence');
 
 var src = 'src',
     dist = 'dist',
@@ -113,56 +105,11 @@ gulp.task('styles', function() {
             })
         ]))
         .pipe($.sourcemaps.write())
+        .pipe($.if(minCss, $.csso()))
         .pipe(gulp.dest(dirs.css))
         .pipe(reload({
             stream: true
         }));
-});
-
-gulp.task('compass', function() {
-    var config = {
-        css: dirs.css,
-        sass: dirs.sass,
-        image: dirs.img,
-        javascript: dirs.js
-    };
-
-    if (minCss) {
-        return gulp.src([
-                dirs.sass + '/main.scss',
-                //dirs.sass + '/main-ie.scss',
-            ])
-            .pipe(plumber({
-                errorHandler: function(error) {
-                    console.log(error.message);
-                    this.emit('end');
-                }
-            }))
-            .pipe(compass(config))
-            .on('error', gutil.log)
-            .pipe(csso())
-            .pipe(gulp.dest(dirs.css))
-            .pipe(reload({
-                stream: true
-            }));
-    } else {
-        return gulp.src([
-                dirs.sass + '/main.scss',
-                //dirs.sass + '/main-ie.scss',
-            ])
-            .pipe(plumber({
-                errorHandler: function(error) {
-                    console.log(error.message);
-                    this.emit('end');
-                }
-            }))
-            .pipe(compass(config))
-            .on('error', gutil.log)
-            .pipe(gulp.dest(dirs.css))
-            .pipe(reload({
-                stream: true
-            }));
-    }
 });
 
 gulp.task('concat', function() {
@@ -176,8 +123,8 @@ gulp.task('concat', function() {
             // Modules
             dirs.js + '/modules/**/*.js'
         ])
-        .pipe(plumber())
-        .pipe(concat('scripts.js'))
+        .pipe($.plumber())
+        .pipe($.concat('scripts.js'))
         .pipe(gulp.dest(dirs.js))
         .pipe(reload({
             stream: true
@@ -202,9 +149,7 @@ gulp.task('copyByDistMode', function() {
 
 gulp.task('copy:vendors', function() {
     return gulp.src([
-            dirs.vend + '/**/*jquery.min.js',
-            dirs.vend + '/**/*jquery.mask.min.js',
-            dirs.vend + '/**/*retina.min.js'
+            dirs.vend + '/**/*jquery.min.js'
         ])
         .pipe(gulp.dest(build.vend));
 });
@@ -221,24 +166,19 @@ gulp.task('default', ['browser-sync'], function() {
 
 gulp.task('imagemin', function() {
     return gulp.src(build.img + '/**/*.{svg,png,jpg,jpeg,gif}')
-        .pipe(imagemin({
+        .pipe($.imagemin({
             progressive: true,
             interlaced: true
         }))
         .pipe(gulp.dest(build.img))
-        .pipe(size({
+        .pipe($.size({
             title: 'imagemin',
             showFiles: true
         }));
 });
 
 gulp.task('uglify', function(cb) {
-    if (minJs) {
-        return gulp.src(dirs.js + '/scripts.js')
-            .pipe(uglify().on('error', gutil.log))
-            .pipe(gulp.dest(build.js));
-    } else {
-        return gulp.src(dirs.js + '/scripts.js')
-            .pipe(gulp.dest(build.js));
-    }
+    return gulp.src(dirs.js + '/scripts.js')
+        .pipe($.if(minJs, $.uglify().on('error', console.error.bind(console, 'Uglify error:'))))
+        .pipe(gulp.dest(build.js));
 });

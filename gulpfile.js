@@ -147,6 +147,12 @@ gulp.task('html', function() {
 		.pipe($.rename({
 			extname: '.html'
 		}))
+		.pipe($.prettify({
+			indent_char: '\t',
+			indent_size: 1,
+			end_with_newline: true,
+			max_preserve_newlines: 1
+		}))
 		.pipe(gulp.dest(src));
 });
 

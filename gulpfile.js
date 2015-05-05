@@ -17,6 +17,7 @@ var src = 'src',
 	},
 	build = {
 		css: dist + '/assets/css',
+		html: dist + '/assets/html',
 		img: dist + '/assets/img',
 		js: dist + '/assets/js',
 		sass: dist + '/assets/sass',
@@ -40,7 +41,7 @@ gulp.task('browser-sync', function() {
 
 gulp.task('build', function(cb) {
 	runSequence(
-		'cleanByDistMode', ['styles', 'concat'],
+		'cleanByDistMode', ['styles', 'concat', 'partials'],
 		'copyByDistMode', ['clean:sprite'],
 		'imagemin',
 		'clean:release',
@@ -51,9 +52,10 @@ gulp.task('build', function(cb) {
 
 gulp.task('clean:release', function(cb) {
 	return del([
-		build.sass,
+		build.html,
 		build.js + '/**/*',
 		'!' + build.js + '/scripts.js',
+		build.sass,
 		build.vend
 	], {
 		force: true
@@ -109,13 +111,15 @@ gulp.task('copyByDistMode', function() {
 	switch (distMode) {
 		case 'assets':
 			return gulp.src([
-					src + '/assets/**/*'
+					src + '/assets/**/*',
+					'!' + dirs.html + '/**/*'
 				])
 				.pipe(gulp.dest(dist + '/assets'));
 			break;
 		default:
 			return gulp.src([
-					src + '/**/*'
+					src + '/**/*',
+					'!' + dirs.html + '/**/*'
 				])
 				.pipe(gulp.dest(dist));
 	}
@@ -135,25 +139,8 @@ gulp.task('default', ['browser-sync'], function() {
 		dirs.js + '/main.js',
 		dirs.js + '/modules/**/*.js'
 	], ['concat']);
-	gulp.watch(src + '/**/*.html').on('change', reload);
-});
-
-gulp.task('html', function() {
-	return gulp.src(dirs.html + '/*.tpl.html')
-		.pipe($.fileInclude())
-		.pipe($.rename({
-			extname: ''
-		}))
-		.pipe($.rename({
-			extname: '.html'
-		}))
-		.pipe($.prettify({
-			indent_char: '\t',
-			indent_size: 1,
-			end_with_newline: true,
-			max_preserve_newlines: 1
-		}))
-		.pipe(gulp.dest(src));
+	gulp.watch(dirs.html + '/**/*.html', ['partials']);
+	gulp.watch(src + '/*.html').on('change', reload);
 });
 
 gulp.task('imagemin', function() {
@@ -167,6 +154,18 @@ gulp.task('imagemin', function() {
 			title: 'imagemin',
 			showFiles: true
 		}));
+});
+
+gulp.task('partials', function() {
+	return gulp.src(dirs.html + '/*.html')
+		.pipe($.fileInclude())
+		.pipe($.prettify({
+			indent_char: '\t',
+			indent_size: 1,
+			end_with_newline: true,
+			max_preserve_newlines: 1
+		}))
+		.pipe(gulp.dest(src));
 });
 
 gulp.task('styles', function() {

@@ -171,6 +171,8 @@ gulp.task('concat', function() {
             dirs.js + '/plugins.js',
             // Vendors
             dirs.vend + '/bootstrap-sass-official/assets/javascripts/bootstrap.js',
+            dirs.vend + '/**/*jquery.mask.min.js',
+            dirs.vend + '/**/*retina.min.js',
             // Main
             dirs.js + '/main.js',
             // Modules
@@ -202,9 +204,7 @@ gulp.task('copyByDistMode', function() {
 
 gulp.task('copy:vendors', function() {
     return gulp.src([
-            dirs.vend + '/**/*jquery.min.js',
-            dirs.vend + '/**/*jquery.mask.min.js',
-            dirs.vend + '/**/*retina.min.js'
+            dirs.vend + '/**/*jquery.min.js'
         ])
         .pipe(gulp.dest(build.vend));
 });

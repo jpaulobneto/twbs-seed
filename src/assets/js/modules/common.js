@@ -1,3 +1,4 @@
+// Common
 window.mod.common = function() {
 
 	// Scope
@@ -5,6 +6,7 @@ window.mod.common = function() {
 
 	var init = function() {
 		console.log('[my] begin common.js');
+		window.mod['mask'] = new window.mod['mask']();
 	};
 
 	// Helper serialize

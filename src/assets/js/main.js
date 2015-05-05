@@ -1,3 +1,4 @@
+// Main
 (function(window, document, $) {
 	'use strict';
 

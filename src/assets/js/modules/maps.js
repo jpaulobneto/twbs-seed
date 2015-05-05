@@ -1,3 +1,4 @@
+// Maps
 window.mod.maps = function() {
 
 	var that = this;

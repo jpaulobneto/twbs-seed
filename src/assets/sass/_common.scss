@@ -1,37 +1,17 @@
-*,
-*:before,
-*:after {
-  @include box-sizing(border-box);
+/* Body */
+body {
+	-webkit-font-smoothing: antialiased;
 }
 
+/* Link */
+a {
+	outline: 0;
+	&:hover, &:visited, &:focus {
+		text-decoration: none;
+	}
+}
 
-// Author's custom styles
-
-// Here's an example of how to use sprites with Compass and how to use the
-// function to convert to PX to REM with fallbacks
-//
-//.bebop {
-//  @include hide-text();
-//  @include sprite($sprite, bebop, true); // This will include the bg position and, if true is passed, height + width
-//  position: fixed;
-//  top: 50%;
-//  left: 50%;
-//  display: block;
-//  margin: u(-178 0 0 -138.5);
-//  background-image: $sprite;
-//}
-//
-//// In case you have and HD sprite, it usually has 2x the size of the standard one.
-//// This media query sets the background image to the HD sprite image while forcing it's
-//// size to the original sprite's measurements
-//
-//@media print,
-//(-o-min-device-pixel-ratio: 5/4),
-//(-webkit-min-device-pixel-ratio: 1.25),
-//(min-resolution: 120dpi) {
-//
-//  .bebop {
-//    background-image: $sprite-hd;
-//    background-size: image-width(sprite-path($sprite-hd))/2 image-height(sprite-path($sprite-hd))/2;
-//  }
-//}
+a[href^=tel] {
+	color: inherit;
+	text-decoration: none;
+}

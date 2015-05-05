@@ -1,3 +1,10 @@
-$px-only: false;
-
-@import 'style';
+// Carrega os vendors
+@import 'helpers/variables';
+@import 'helpers/fonts';
+@import 'helpers/functions';
+@import "../vendor/bootstrap-sass-official/assets/stylesheets/bootstrap";
+// Estilos gerais
+@import "common";
+// Carrega os components e os utilities
+@import "components/*";
+@import 'helpers/utilities';

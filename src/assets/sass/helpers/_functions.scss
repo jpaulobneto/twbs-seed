@@ -1,31 +1,3 @@
-@function u($values) {
-
-	$list: ();
-
-	@each $value in $values {
-
-		@if $value == 'auto' {
-			$list: append($list, $value);
-		}
-
-		@else {
-
-			@if ($px-only) {
-				$list: append($list, $value + px);
-			}
-
-			@else {
-				$list: append($list, ($value/$font-size) + rem);
-			}
-
-		}
-
-	}
-
-	@return $list();
-
-}
-
 @mixin bg-sprite($img){
 	background-image:$sprite;
 	@include sprite($sprite, $img, true);

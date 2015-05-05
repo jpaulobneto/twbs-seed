@@ -37,11 +37,6 @@ gulp.task('browser-sync', function() {
     });
 });
 
-// Reload all Browsers
-gulp.task('browser-reload', function() {
-    browserSync.reload();
-});
-
 gulp.task('build', function(cb) {
     runSequence(
         'cleanByDistMode', ['styles', 'concat'],
@@ -139,7 +134,7 @@ gulp.task('default', ['browser-sync'], function() {
         dirs.js + '/main.js',
         dirs.js + '/modules/**/*.js'
     ], ['concat']);
-    gulp.watch(src + '/**/*.html', ['browser-reload']);
+    gulp.watch(src + '/**/*.html').on('change', reload);
 });
 
 gulp.task('imagemin', function() {

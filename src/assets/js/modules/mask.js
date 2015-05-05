@@ -1,3 +1,4 @@
+// Mask
 window.mod.mask = function() {
 
 	var init = function(){

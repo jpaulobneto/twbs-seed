@@ -139,8 +139,8 @@ gulp.task('default', ['browser-sync'], function() {
 		dirs.js + '/main.js',
 		dirs.js + '/modules/**/*.js'
 	], ['concat']);
-	gulp.watch(dirs.html + '/**/*.html', ['partials']);
-	gulp.watch(src + '/*.html').on('change', reload);
+	gulp.watch(dirs.html + '/**/*.html', ['partials']).on('change', reload);
+	gulp.watch(src + '/*.html');
 });
 
 gulp.task('imagemin', function() {

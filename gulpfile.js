@@ -139,8 +139,7 @@ gulp.task('default', ['browser-sync'], function() {
 		dirs.js + '/main.js',
 		dirs.js + '/modules/**/*.js'
 	], ['concat']);
-	gulp.watch(dirs.html + '/**/*.html', ['partials']).on('change', reload);
-	gulp.watch(src + '/*.html');
+	gulp.watch(dirs.html + '/**/*.html', ['partials']);
 });
 
 gulp.task('imagemin', function() {
@@ -165,7 +164,10 @@ gulp.task('partials', function() {
 			end_with_newline: true,
 			max_preserve_newlines: 1
 		}))
-		.pipe(gulp.dest(src));
+		.pipe(gulp.dest(src))
+		.pipe(reload({
+			stream: true
+		}));
 });
 
 gulp.task('styles', function() {

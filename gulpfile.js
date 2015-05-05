@@ -8,16 +8,17 @@ var gulp = require('gulp'),
 var src = 'src',
     dist = 'dist',
     dirs = {
-        js: src + '/assets/js',
         css: src + '/assets/css',
+        html: src + '/assets/html',
         img: src + '/assets/img',
+        js: src + '/assets/js',
         sass: src + '/assets/sass',
         vend: src + '/assets/vendor'
     },
     build = {
-        js: dist + '/assets/js',
         css: dist + '/assets/css',
         img: dist + '/assets/img',
+        js: dist + '/assets/js',
         sass: dist + '/assets/sass',
         vend: dist + '/assets/vendor'
     };
@@ -135,6 +136,18 @@ gulp.task('default', ['browser-sync'], function() {
         dirs.js + '/modules/**/*.js'
     ], ['concat']);
     gulp.watch(src + '/**/*.html').on('change', reload);
+});
+
+gulp.task('html', function() {
+    return gulp.src(dirs.html + '/*.tpl.html')
+        .pipe($.fileInclude())
+        .pipe($.rename({
+            extname: ''
+        }))
+        .pipe($.rename({
+            extname: '.html'
+        }))
+        .pipe(gulp.dest(src));
 });
 
 gulp.task('imagemin', function() {

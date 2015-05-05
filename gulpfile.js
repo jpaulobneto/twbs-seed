@@ -45,7 +45,7 @@ gulp.task('browser-reload', function() {
 gulp.task('build', function(cb) {
     runSequence(
         'cleanByDistMode', ['styles', 'concat'],
-        'copyByDistMode', ['clean:sprite', 'uglify'],
+        'copyByDistMode', ['clean:sprite'],
         'imagemin',
         'clean:release',
         'copy:vendors',
@@ -87,31 +87,6 @@ gulp.task('cleanByDistMode', function(cb) {
     }
 });
 
-gulp.task('styles', function() {
-    return gulp.src(dirs.sass + '/main.scss')
-        .pipe($.cssGlobbing({
-            extensions: ['.scss']
-        }))
-        .pipe($.sourcemaps.init())
-        .pipe($.sass({
-            outputStyle: 'nested', // libsass doesn't support expanded yet
-            precision: 10,
-            includePaths: ['.'],
-            onError: console.error.bind(console, 'Sass error:')
-        }))
-        .pipe($.postcss([
-            require('autoprefixer-core')({
-                browsers: ['last 1 version']
-            })
-        ]))
-        .pipe($.sourcemaps.write())
-        .pipe($.if(minCss, $.csso()))
-        .pipe(gulp.dest(dirs.css))
-        .pipe(reload({
-            stream: true
-        }));
-});
-
 gulp.task('concat', function() {
     return gulp.src([
             // Plugins
@@ -127,6 +102,7 @@ gulp.task('concat', function() {
         ])
         .pipe($.plumber())
         .pipe($.concat('scripts.js'))
+        .pipe($.if(minJs, $.uglify().on('error', console.error.bind(console, 'Uglify error:'))))
         .pipe(gulp.dest(dirs.js))
         .pipe(reload({
             stream: true
@@ -179,8 +155,27 @@ gulp.task('imagemin', function() {
         }));
 });
 
-gulp.task('uglify', function(cb) {
-    return gulp.src(dirs.js + '/scripts.js')
-        .pipe($.if(minJs, $.uglify().on('error', console.error.bind(console, 'Uglify error:'))))
-        .pipe(gulp.dest(build.js));
+gulp.task('styles', function() {
+    return gulp.src(dirs.sass + '/main.scss')
+        .pipe($.cssGlobbing({
+            extensions: ['.scss']
+        }))
+        .pipe($.sourcemaps.init())
+        .pipe($.sass({
+            outputStyle: 'nested', // libsass doesn't support expanded yet
+            precision: 10,
+            includePaths: ['.'],
+            onError: console.error.bind(console, 'Sass error:')
+        }))
+        .pipe($.postcss([
+            require('autoprefixer-core')({
+                browsers: ['last 1 version']
+            })
+        ]))
+        .pipe($.sourcemaps.write())
+        .pipe($.if(minCss, $.csso()))
+        .pipe(gulp.dest(dirs.css))
+        .pipe(reload({
+            stream: true
+        }));
 });

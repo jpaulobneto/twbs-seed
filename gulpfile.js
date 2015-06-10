@@ -41,6 +41,11 @@ var AUTOPREFIXER_BROWSERS = [
 	'bb >= 10'
 ];
 
+// Reload all Browsers
+gulp.task('browser-reload', function() {
+    browserSync.reload();
+});
+
 // browser-sync task for starting the server.
 gulp.task('browser-sync', function() {
 	browserSync({
@@ -53,7 +58,7 @@ gulp.task('browser-sync', function() {
 
 gulp.task('build', function(cb) {
 	runSequence(
-		'cleanByDistMode', ['styles', 'concat', 'partials'],
+		'cleanByDistMode', ['styles', 'concat'],
 		'copyByDistMode', ['clean:sprite'],
 		'imagemin',
 		'clean:release',
@@ -151,7 +156,7 @@ gulp.task('default', ['browser-sync'], function() {
 		dirs.js + '/main.js',
 		dirs.js + '/modules/**/*.js'
 	], ['concat']);
-	gulp.watch(dirs.html + '/**/*.html', ['partials']);
+	gulp.watch(src + '/**/*.html', ['browser-reload']);
 });
 
 gulp.task('imagemin', function() {
@@ -164,21 +169,6 @@ gulp.task('imagemin', function() {
 		.pipe($.size({
 			title: 'imagemin',
 			showFiles: true
-		}));
-});
-
-gulp.task('partials', function() {
-	return gulp.src(dirs.html + '/*.html')
-		.pipe($.fileInclude())
-		.pipe($.prettify({
-			indent_char: '\t',
-			indent_size: 1,
-			end_with_newline: true,
-			max_preserve_newlines: 1
-		}))
-		.pipe(gulp.dest(src))
-		.pipe(reload({
-			stream: true
 		}));
 });
 

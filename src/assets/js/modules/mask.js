@@ -13,23 +13,23 @@ window.mod.mask = function() {
 		};
 
 		// Masks
-		$('.mask-phone').mask(maskBehavior, {onKeyPress:
+		$('.Mask-phone').mask(maskBehavior, {onKeyPress:
 			function(val, e, field, options) {
 				field.mask(maskBehavior(val, e, field, options), options);
 			}
 		});
 
-		$('.mask-date').mask('00/00/0000');
-		$('.mask-cnpj').mask('00.000.000/0000-00', {reverse: true});
-		$('.mask-time').mask('00:00:00');
-		$('.mask-date-time').mask('00/00/0000 00:00:00');
-		$('.mask-cep').mask('00000-000');
-		$('.mask-phone-us').mask('(000) 000-0000');
-		$('.mask-cpf').mask('000.000.000-00', {reverse: true});
-		$('.mask-rg').mask('0.000.000', {reverse: true});
-		$('.mask-size').mask('0000,00', {reverse: true});
-		$('.mask-money').mask('000.000.000.000.000,00', {reverse: true});
-		$('.mask-percent').mask('##0,00%', {reverse: true});
+		$('.Mask-date').mask('00/00/0000');
+		$('.Mask-cnpj').mask('00.000.000/0000-00', {reverse: true});
+		$('.Mask-time').mask('00:00:00');
+		$('.Mask-date-time').mask('00/00/0000 00:00:00');
+		$('.Mask-cep').mask('00000-000');
+		$('.Mask-phone-us').mask('(000) 000-0000');
+		$('.Mask-cpf').mask('000.000.000-00', {reverse: true});
+		$('.Mask-rg').mask('0.000.000', {reverse: true});
+		$('.Mask-size').mask('0000,00', {reverse: true});
+		$('.Mask-money').mask('000.000.000.000.000,00', {reverse: true});
+		$('.Mask-percent').mask('##0,00%', {reverse: true});
 	};
 
 	init();

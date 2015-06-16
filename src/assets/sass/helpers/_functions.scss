@@ -1,10 +1,6 @@
-@mixin bg-sprite($img){
-	background-image:$sprite;
-	@include sprite($sprite, $img, true);
-}
-
-@mixin valign($h) {
-	height: $h;
-	position: absolute;
-	top: calc((100% - #{$h})/2);
+@mixin valign() {
+	overflow: hidden;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
 }

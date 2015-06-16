@@ -1,13 +1,23 @@
+/* Html */
+html {
+	position: relative;
+	min-height: 100%;
+}
+
 /* Body */
 body {
 	-webkit-font-smoothing: antialiased;
 }
 
 /* Link */
-a {
-	outline: 0;
+a, button {
+	outline: 0 !important;
+	-webkit-transition-duration: 0.4s;
+	transition-duration: 0.4s;
 	&:hover, &:visited, &:focus {
 		text-decoration: none;
+		-webkit-transition-duration: 0.4s;
+		transition-duration: 0.4s;
 	}
 }
 

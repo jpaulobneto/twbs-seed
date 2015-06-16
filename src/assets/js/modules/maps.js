@@ -1,40 +1,9 @@
 // Maps
 window.mod.maps = function() {
 
-	var that = this;
-	var map;
-	var openWindow = [];
-	var info = [
-		{
-			nome: 'Local',
-			texto: 'Texto',
-			coord: [-7.121555, -34.863433]
-		}
-	];
-
 	var init = function() {
 		console.log('[brz] begin maps.js');
 		loadScript();
-		// console.log(mod.common.validateFields());
-	};
-
-	var loadMarkers = function(data){
-		for(k in data) {
-			var point = new google.maps.LatLng(data[k].coord[0],data[k].coord[1]);
-			var marker = new google.maps.Marker({
-				map: map,
-				position: point,
-				icon: new google.maps.MarkerImage('assets/img/marker.png', null, null, null, new google.maps.Size(48,48))
-			});
-			var content = [
-			'<b>',
-			data[k].nome,
-			'</b><br>',
-			data[k].texto
-			].join('');
-
-			markerClick(marker, content);
-		}
 	};
 
 	var loadScript = function() {
@@ -45,39 +14,12 @@ window.mod.maps = function() {
 		document.body.appendChild(script);
 	};
 
-	var markerClick = function(marker, content) {
-		var infowindow = new google.maps.InfoWindow({
-			content: content
-		});
-
-		google.maps.event.addListener(marker, 'click', function() {
-			map.panTo(marker.getPosition());
-
-			if(typeof openWindow[0] !== 'undefined')
-				openWindow[0].close();
-			openWindow.pop();
-
-			infowindow.open(map,marker);
-			openWindow.push(infowindow);
-		});
-
-		google.maps.event.addListener(infowindow, 'closeclick', function(){
-			map.panTo(new google.maps.LatLng(info[0].coord[0], info[0].coord[1]));
-		});
-	};
-
 	this.loadMap = function() {
-		// console.log('loading google maps');
-		var mapCenter = new google.maps.LatLng(info[0].coord[0], info[0].coord[1])
-		var mapOptions = {
-			zoom: 18,
-			center: mapCenter,
-			scrollwheel: false
-		};
+		console.log('Loading Google Maps');
 
-		map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-		loadMarkers(info);
+		$('.Map').gmaps({
+			styles: [{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"color":"#f7f1df"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"color":"#d0e3b4"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.medical","elementType":"geometry","stylers":[{"color":"#fbd3da"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#bde6ab"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffe15f"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efd151"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"black"}]},{"featureType":"transit.station.airport","elementType":"geometry.fill","stylers":[{"color":"#cfb2db"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#a2daf2"}]}]
+		});
 	};
 
 	init();

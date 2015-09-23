@@ -1,27 +1,25 @@
-; This file is for unifying the coding style for different editors and IDEs.
-; More information at http://editorconfig.org
+# EditorConfig helps developers define and maintain consistent
+# coding styles between different editors and IDEs
+# editorconfig.org
 
 root = true
 
+
 [*]
-indent_style = tab
-indent_size = 4
+
+# change these settings to your own preference
+indent_style = space
+indent_size = 2
+
+# we recommend you to keep these unchanged
 end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.yml]
-indent_style = space
-indent_size = 2
-
-[*.rb]
-indent_style = tab
-indent_size = 2
-
-[Vagrantfile]
-indent_style = space
-indent_size = 2
-
 [*.md]
 trim_trailing_whitespace = false
+
+[{package,bower}.json]
+indent_style = space
+indent_size = 2

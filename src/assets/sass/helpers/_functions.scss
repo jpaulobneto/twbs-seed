@@ -1,6 +1,6 @@
 @mixin valign() {
-	overflow: hidden;
-	position: relative;
-	top: 50%;
-	transform: translateY(-50%);
+  overflow: hidden;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }

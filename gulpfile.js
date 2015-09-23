@@ -185,7 +185,7 @@ gulp.task('styles', function() {
 			onError: console.error.bind(console, 'Sass error:')
 		}))
 		.pipe($.postcss([
-			require('autoprefixer-core')({
+			require('autoprefixer')({
 				browsers: AUTOPREFIXER_BROWSERS
 			})
 		]))
@@ -196,4 +196,3 @@ gulp.task('styles', function() {
 			stream: true
 		}));
 });
-

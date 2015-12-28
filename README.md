@@ -1,18 +1,26 @@
 # twbs-seed
-Boilerplate and custom bootstrap configuration to build faster
+Boilerplate and custom bootstrap configuration to build faster, using Sass and Jade Template Engine.
 
 ## Commands
 
 Install dependencies
 ```sh
-npm install && bower install
+npm install
 ```
 
 Starts development:
-```sh
+```
+gulp serve
+```
+Build:
+```
 gulp
 ```
-Build
-```sh
-gulp build
+Serve dist:
+```
+gulp serve:dist
+```
+Clean:
+```
+gulp clean
 ```

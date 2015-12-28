@@ -1,0 +1,44 @@
+[class^="Icon--"],
+[class*=" Icon--"] {
+  &:before, &:after {
+    font-family: $fontastic !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+$icons: (
+  twitter:         "a",
+  facebook:        "b",
+  instagram:       "c",
+  googlep:         "d",
+  youtube:         "e",
+  vimeo:           "f",
+  whatsapp:        "g",
+  snapchat:        "h",
+);
+
+// Icon--name[After|Before]
+.Icon {
+  z-index: 100;
+  &.Icon--block {
+    &:after, &:before {
+      display: block;
+    }
+  }
+  @each $key, $value in $icons {
+    &.Icon-- {
+      &#{$key} {
+        &After:after, &Before:before {
+          content: $value;
+        }
+      }
+    }
+  }
+}

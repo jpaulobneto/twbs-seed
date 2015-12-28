@@ -1,0 +1,11 @@
+// Fontastic
+@font-face {
+  font-family: $fontastic;
+  src:url("../fonts/#{$fontastic}.eot");
+  src:url("../fonts/#{$fontastic}.eot?#iefix") format("embedded-opentype"),
+      url("../fonts/#{$fontastic}.woff") format("woff"),
+      url("../fonts/#{$fontastic}.ttf") format("truetype"),
+      url("../fonts/#{$fontastic}.svg##{$fontastic}") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}

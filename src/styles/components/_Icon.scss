@@ -14,14 +14,7 @@
 }
 
 $icons: (
-  twitter:         "a",
-  facebook:        "b",
-  instagram:       "c",
-  googlep:         "d",
-  youtube:         "e",
-  vimeo:           "f",
-  whatsapp:        "g",
-  snapchat:        "h",
+  github:         "a",
 );
 
 // Icon--name[After|Before]
@@ -37,6 +30,12 @@ $icons: (
       &#{$key} {
         &After:after, &Before:before {
           content: $value;
+        }
+        &After:after {
+          margin: 0 0 0 5px;
+        }
+        &Before:before {
+          margin: 0 5px 0 0;
         }
       }
     }

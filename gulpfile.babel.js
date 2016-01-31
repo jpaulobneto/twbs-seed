@@ -140,7 +140,8 @@ gulp.task('templates', () => {
   .pipe($.sourcemaps.init())
   .pipe($.jade({
     pretty: true
-  }).on('error', $.jade))
+  }))
+  .pipe($.plumber())
   .pipe($.sourcemaps.write())
   .pipe(gulp.dest(`${tmp}`))
   .pipe($.size({title: '[templates]'}));

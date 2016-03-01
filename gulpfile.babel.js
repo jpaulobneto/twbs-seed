@@ -75,13 +75,12 @@ gulp.task('lint', () => {
 
 gulp.task('scripts', () => {
   return gulp.src([
-    `${src}/scripts/main.js`
+    `${src}/scripts/main.js`,
+    `${src}/scripts/*/**/*.js`
   ])
   .pipe($.newer(`${tmp}/scripts`))
-  .pipe($.sourcemaps.init())
   .pipe($.babel())
-  .pipe($.sourcemaps.write())
-  .pipe($.concat('main.js'))
+  .pipe($.concat('scripts.js'))
   .pipe(gulp.dest(`${tmp}/scripts`))
   .pipe($.size({title: '[scripts]'}));
 });

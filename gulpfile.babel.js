@@ -37,7 +37,7 @@ gulp.task('default', ['clean'], cb => {
   return runSequence(
     'lint',
     ['templates', 'styles', 'vendors', 'scripts'],
-    ['fonts', 'images'],
+    ['fonts', 'images', 'minifyCss'],
     'copy',
     cb
   );
@@ -71,6 +71,17 @@ gulp.task('lint', () => {
   .pipe($.eslint.format())
   .pipe($.if(!browserSync.active, $.eslint.failOnError()))
   .pipe($.size({title: '[lint]'}));
+});
+
+gulp.task('minifyCss', () => {
+  return gulp.src(`${tmp}/styles/main.css`)
+  .pipe($.rename(function (path) {
+    path.basename += ".min";
+    path.extname = ".css"
+  }))
+  .pipe($.cssnano())
+  .pipe(gulp.dest(`${tmp}/styles`))
+  .pipe($.size({title: '[minifyCss]'}))
 });
 
 gulp.task('scripts', () => {
@@ -123,12 +134,12 @@ gulp.task('serve:dist', ['default'], () => {
 
 gulp.task('styles', () => {
   return gulp.src(`${src}/styles/main.scss`)
+  .pipe($.newer(`${tmp}/styles`))
+  .pipe($.sourcemaps.init())
   .pipe($.cssGlobbing({
     extensions: ['.scss']
   }))
   .pipe($.plumber())
-  .pipe($.newer(`${tmp}/styles`))
-  .pipe($.sourcemaps.init())
   .pipe($.sass.sync({
     outputStyle: 'expanded',
     precision: 10,

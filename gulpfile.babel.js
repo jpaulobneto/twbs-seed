@@ -37,7 +37,7 @@ gulp.task('default', ['clean'], cb => {
   return runSequence(
     'lint',
     ['templates', 'styles', 'vendors', 'scripts'],
-    ['fonts', 'images'],
+    ['fonts', 'images', 'minifyCss'],
     'copy',
     cb
   );
@@ -73,14 +73,33 @@ gulp.task('lint', () => {
   .pipe($.size({title: '[lint]'}));
 });
 
+gulp.task('minifyCss', () => {
+  return gulp.src(`${tmp}/styles/main.css`)
+  .pipe($.rename(function (path) {
+    path.basename += ".min";
+    path.extname = ".css"
+  }))
+  .pipe($.cssnano())
+  .pipe(gulp.dest(`${tmp}/styles`))
+  .pipe($.size({title: '[minifyCss]'}))
+});
+
 gulp.task('scripts', () => {
-  return gulp.src([
+  let scripts = [
     `${src}/scripts/main.js`,
     `${src}/scripts/*/**/*.js`
-  ])
+  ];
+
+  return gulp.src(scripts)
   .pipe($.newer(`${tmp}/scripts`))
   .pipe($.babel())
   .pipe($.concat('scripts.js'))
+  .pipe(gulp.dest(`${tmp}/scripts`))
+  .pipe($.rename(function (path) {
+    path.basename += ".min";
+    path.extname = ".js"
+  }))
+  .pipe($.uglify({preserveComments: 'some'}))
   .pipe(gulp.dest(`${tmp}/scripts`))
   .pipe($.size({title: '[scripts]'}));
 });
@@ -115,12 +134,12 @@ gulp.task('serve:dist', ['default'], () => {
 
 gulp.task('styles', () => {
   return gulp.src(`${src}/styles/main.scss`)
+  .pipe($.newer(`${tmp}/styles`))
+  .pipe($.sourcemaps.init())
   .pipe($.cssGlobbing({
     extensions: ['.scss']
   }))
   .pipe($.plumber())
-  .pipe($.newer(`${tmp}/styles`))
-  .pipe($.sourcemaps.init())
   .pipe($.sass.sync({
     outputStyle: 'expanded',
     precision: 10,

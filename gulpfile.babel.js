@@ -74,13 +74,18 @@ gulp.task('lint', () => {
 });
 
 gulp.task('scripts', () => {
-  return gulp.src([
+  let scripts = [
     `${src}/scripts/main.js`,
     `${src}/scripts/*/**/*.js`
-  ])
+  ];
+
+  return gulp.src(scripts)
   .pipe($.newer(`${tmp}/scripts`))
   .pipe($.babel())
   .pipe($.concat('scripts.js'))
+  .pipe(gulp.dest(`${tmp}/scripts`))
+  .pipe($.concat('scripts.min.js'))
+  .pipe($.uglify({preserveComments: 'some'}))
   .pipe(gulp.dest(`${tmp}/scripts`))
   .pipe($.size({title: '[scripts]'}));
 });

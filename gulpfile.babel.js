@@ -84,7 +84,10 @@ gulp.task('scripts', () => {
   .pipe($.babel())
   .pipe($.concat('scripts.js'))
   .pipe(gulp.dest(`${tmp}/scripts`))
-  .pipe($.concat('scripts.min.js'))
+  .pipe($.rename(function (path) {
+    path.basename += ".min";
+    path.extname = ".js"
+  }))
   .pipe($.uglify({preserveComments: 'some'}))
   .pipe(gulp.dest(`${tmp}/scripts`))
   .pipe($.size({title: '[scripts]'}));

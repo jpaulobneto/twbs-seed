@@ -69,6 +69,7 @@
     "gulp-load-plugins": "^1.1.0",
     "gulp-newer": "^1.1.0",
     "gulp-plumber": "^1.0.1",
+    "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.1.1",
     "gulp-size": "^2.0.0",
     "gulp-sourcemaps": "^1.6.0",

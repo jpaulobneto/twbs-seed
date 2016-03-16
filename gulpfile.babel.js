@@ -45,7 +45,7 @@ gulp.task('default', ['clean'], cb => {
 
 gulp.task('fonts', () => {
   return gulp.src([
-    `${src}/fonts/*`
+    `${src}/fonts/**/*.{eot,svg,ttf,woff,woff2}`
   ])
   .pipe(gulp.dest(`${dist}/fonts`))
   .pipe($.size({title: '[fonts]'}));
@@ -67,6 +67,7 @@ gulp.task('lint', () => {
   return gulp.src([
     `${src}/scripts/**/*.js`
   ])
+  .pipe($.babel())
   .pipe($.eslint())
   .pipe($.eslint.format())
   .pipe($.if(!browserSync.active, $.eslint.failOnError()))
@@ -115,7 +116,7 @@ gulp.task('serve', ['templates', 'styles', 'vendors', 'scripts'], () => {
   });
 
   gulp.watch(`${src}/views/**/*.jade`, ['templates']);
-  gulp.watch(`${src}/styles/**/*.scss`, ['styles']);
+  gulp.watch(`${src}/styles/**/*.{scss,sass}`, ['styles']);
   gulp.watch(`${src}/scripts/**/*.js`, ['lint', 'scripts', reload]);
   gulp.watch(`${tmp}/*.html`, reload);
   gulp.watch(`${src}/images/**/*`, reload);
@@ -133,11 +134,11 @@ gulp.task('serve:dist', ['default'], () => {
 });
 
 gulp.task('styles', () => {
-  return gulp.src(`${src}/styles/main.scss`)
+  return gulp.src(`${src}/styles/main.{scss,sass}`)
   .pipe($.newer(`${tmp}/styles`))
   .pipe($.sourcemaps.init())
   .pipe($.cssGlobbing({
-    extensions: ['.scss']
+    extensions: ['.scss', '.sass']
   }))
   .pipe($.plumber())
   .pipe($.sass.sync({
@@ -169,6 +170,7 @@ gulp.task('vendors', () => {
   return gulp.src([
     `${vendor}/jquery/dist/jquery.js`,
     `${vendor}/bootstrap-sass/assets/javascripts/bootstrap.js`,
+    `${vendor}/swiper/dist/js/swiper.jquery.js`,
   ])
   .pipe($.newer(`${tmp}/scripts`))
   .pipe($.sourcemaps.init())

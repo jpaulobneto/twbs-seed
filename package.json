@@ -34,7 +34,8 @@
   "dependencies": {
     "bootstrap-sass": "^3.3.6",
     "express": "^4.13.3",
-    "jquery": "^2.1.4"
+    "jquery": "^2.1.4",
+    "swiper": "^3.3.1"
   },
   "eslintConfig": {
     "env": {

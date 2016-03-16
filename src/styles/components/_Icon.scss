@@ -13,9 +13,7 @@
   }
 }
 
-$icons: (
-  github:         "a",
-);
+$icons: (github: 'a', facebook: 'b', twitter: 'c', instagram: 'd', heart: 'e', share: 'f');
 
 // Icon--name[After|Before]
 .Icon {
